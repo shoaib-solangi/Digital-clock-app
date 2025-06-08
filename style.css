@@ -1,0 +1,172 @@
+:root {
+  --primary: #00ff9d;
+  --secondary: #00b8ff;
+  --accent: #ff2d75;
+  --dark: #0f172a;
+  --light: #f8fafc;
+  --glass: rgba(255, 255, 255, 0.05);
+}
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: radial-gradient(circle at center, #1e293b, #0f172a);
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  color: var(--light);
+  line-height: 1.6;
+}
+
+/* Clock Container */
+.container {
+  width: min(90%, 600px);
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 2.5rem;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 4px 12px rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(0, 255, 157, 0.1),
+    rgba(0, 184, 255, 0.1),
+    rgba(255, 45, 117, 0.1)
+  );
+  z-index: -1;
+  animation: rotate 15s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Header */
+h1 {
+  font-weight: 600;
+  font-size: 1.75rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 1px;
+}
+
+/* Clock Display */
+.clock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2rem 0;
+  font-family: 'Fira Code', monospace;
+}
+
+.clock > div {
+  font-size: 4.5rem;
+  font-weight: 600;
+  color: var(--primary);
+  text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+  position: relative;
+  width: 100px;
+  text-align: center;
+}
+
+.clock > div::after {
+  content: '';
+  position: absolute;
+  right: -0.5rem;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.clock > div:last-child::after {
+  display: none;
+}
+
+.sec {
+  color: var(--accent) !important;
+  text-shadow: 0 0 10px rgba(255, 45, 117, 0.5) !important;
+}
+
+/* Date Display */
+.date-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.date-container > div {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  min-width: 80px;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.date-container > div:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.year { color: var(--secondary); }
+.month { color: #a78bfa; }
+.day { color: #fbbf24; }
+.date { color: #34d399; }
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .container {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
+  
+  .clock > div {
+    font-size: 3rem;
+    width: 70px;
+  }
+  
+  .date-container > div {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .clock > div {
+    font-size: 2.5rem;
+    width: 60px;
+  }
+  
+  .date-container {
+    gap: 0.75rem;
+  }
+}
